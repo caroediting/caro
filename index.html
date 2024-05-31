@@ -106,62 +106,10 @@
 </form>
 
 <script>
-    // Function to create a unique key for each post
-    function generateKey() {
-        return 'post_' + Date.now();
-    }
-
-    // Function to save posts to local storage
-    function savePosts(posts) {
-        localStorage.setItem('posts', JSON.stringify(posts));
-    }
-
-    // Function to load posts from local storage
-    function loadPosts() {
-        const posts = JSON.parse(localStorage.getItem('posts')) || [];
-        return posts;
-    }
-
-    // Function to create post element
-    function createPostElement(post) {
-        const postElement = document.createElement('div');
-        postElement.classList.add('post');
-        postElement.setAttribute('data-key', post.key);
-
-        // Add post content
-        const contentElement = document.createElement('p');
-        contentElement.textContent = post.content;
-        postElement.appendChild(contentElement);
-
-        // Add delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.addEventListener('click', function() {
-            const key = post.key;
-            const index = posts.findIndex(p => p.key === key);
-            if (index !== -1) {
-                posts.splice(index, 1);
-                savePosts(posts);
-                postElement.remove();
-            }
-        });
-        postElement.appendChild(deleteButton);
-
-        return postElement;
-    }
-
     const postForm = document.getElementById('post-form');
     const postsContainer = document.getElementById('posts-container');
     const categorySelect = document.getElementById('category-select');
-    let posts = loadPosts(); // Load posts from local storage
 
-    // Display existing posts
-    posts.forEach(post => {
-        const postElement = createPostElement(post);
-        postsContainer.appendChild(postElement);
-    });
-
-    // Event listener for form submission
     postForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -174,36 +122,93 @@
             return;
         }
 
-        const key = generateKey(); // Generate unique key for the post
-        const post = { key, content: postContent, category: selectedCategory };
-        posts.push(post);
-        savePosts(posts); // Save posts to local storage
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+        postElement.setAttribute('data-category', selectedCategory);
 
-        // Create and append post element
-        const postElement = createPostElement(post);
-        postsContainer.appendChild(postElement);
+        // Display text content if provided
+        if (postContent.trim() !== '') {
+            const contentElement = document.createElement('p');
+            contentElement.textContent = postContent;
+            postElement.appendChild(contentElement);
+        }
+
+        // Display file if provided
+        if (postFile) {
+            if (postFile.type.startsWith('video')) {
+                const fileElement = document.createElement('video');
+                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.controls = true;
+                postElement.appendChild(fileElement);
+            } else if (postFile.type.startsWith('audio')) {
+                const fileElement = document.createElement('audio');
+                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.controls = true;
+                postElement.appendChild(fileElement);
+            } else {
+                const fileElement = document.createElement('img');
+                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.style.maxWidth = '100%';
+                postElement.appendChild(fileElement);
+            }
+        }
+
+        // Add comment section
+        const commentForm = document.createElement('form');
+        const commentInput = document.createElement('input');
+        commentInput.setAttribute('type', 'text');
+        commentInput.setAttribute('placeholder', 'Write a comment...');
+        commentForm.appendChild(commentInput);
+
+        const commentButton = document.createElement('button');
+        commentButton.setAttribute('type', 'submit');
+        commentButton.textContent = 'Comment';
+        commentForm.appendChild(commentButton);
+
+        const commentsContainer = document.createElement('div');
+        commentsContainer.classList.add('comments-container');
+
+        commentForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentContent = commentInput.value;
+            if (commentContent.trim() === '') {
+                alert('Please enter a comment.');
+                return;
+            }
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.textContent = commentContent;
+            commentsContainer.appendChild(commentElement);
+            commentInput.value = '';
+        });
+
+        postElement.appendChild(commentsContainer);
+        postElement.appendChild(commentForm);
+
+        postsContainer.insertBefore(postElement, postsContainer.firstChild); // Insert new post at the top
 
         // Clear form fields
         document.getElementById('post-content').value = '';
         document.getElementById('post-file').value = '';
     });
 
-    // Add event listener to category select
     categorySelect.addEventListener('change', function() {
         const selectedCategory = categorySelect.value;
-        const postElements = document.querySelectorAll('.post');
+        const posts = document.querySelectorAll('.post');
 
-        postElements.forEach(postElement => {
-            const post = posts.find(p => p.key === postElement.getAttribute('data-key'));
-            if (!selectedCategory
-            || selectedCategory === 'all-posts' || post.category === selectedCategory) {
-                postElement.style.display = 'block';
+        posts.forEach(post => {
+            const postCategory = post.getAttribute('data-category');
+            if (selectedCategory === 'all-posts' || postCategory === selectedCategory) {
+                post.style.display = 'block';
             } else {
-                postElement.style.display = 'none';
+                post.style.display = 'none';
             }
         });
     });
 
+    // Ensure 'All Posts' is selected by default and displays all posts
+    categorySelect.value = 'all-posts';
+    categorySelect.dispatchEvent(new Event('change'));
 </script>
 </body>
 </html>
