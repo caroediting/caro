@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caro's Editing Blog</title>
+<style>
+    /* Technologic Hologram Style */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle, #1e3c72, #2a5298); /* Blue gradient background */
+        color: #eaf2ff;
+    }
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+        color: #eaf2ff;
+        text-shadow: 0 0 10px rgba(234, 242, 255, 0.7);
+    }
+    #posts-container {
+        width: 90%;
+        max-width: 600px;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    .post {
+        border: 1px solid #eaf2ff;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(234, 242, 255, 0.5);
+    }
+    .comment {
+        margin-left: 20px;
+        border-left: 2px solid #eaf2ff;
+        padding-left: 10px;
+        margin-top: 10px;
+    }
+    form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    input[type="text"], input[type="file"], button {
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #eaf2ff;
+    }
+    button {
+        background-color: rgba(0, 122, 204, 0.7);
+        color: white;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 122, 204, 0.7);
+    }
+    video, audio {
+        max-width: 100%;
+        display: block;
+        margin-top: 10px;
+        border: 1px solid #eaf2ff;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(234, 242, 255, 0.5);
+    }
+    select {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #eaf2ff;
+    }
+</style>
+</head>
+<body>
+<h1>Caro's Editing Blog</h1>
+
+<!-- Category Selection -->
+<select id="category-select">
+    <option value="all-posts">All Posts</option>
+    <option value="audios">Audios</option>
+    <!-- Add other categories if needed -->
+</select>
+
+<div id="posts-container">
+    <!-- Container for posts -->
+</div>
+
+<form id="post-form">
+    <input type="text" id="post-content" placeholder="Write something...">
+    <input type="file" id="post-file">
+    <button type="submit">Post</button>
+</form>
+
+<script>
+    const postForm = document.getElementById('post-form');
+    const postsContainer = document.getElementById('posts-container');
+    const categorySelect = document.getElementById('category-select');
+
+    postForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const postContent = document.getElementById('post-content').value;
+        const postFile = document.getElementById('post-file').files[0];
+        const selectedCategory = categorySelect.value;
+
+        if (postContent.trim() === '' && !postFile) {
+            alert('Please enter some content or select a file.');
+            return;
+        }
+
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+        postElement.setAttribute('data-category', selectedCategory);
+
+        // Display text content if provided
+        if (postContent.trim() !== '') {
+            const contentElement = document.createElement('p');
+            contentElement.textContent = postContent;
+            postElement.appendChild(contentElement);
+        }
+
+        // Display file if provided
+        if (postFile) {
+            if (postFile.type.startsWith('video')) {
+                const fileElement = document.createElement('video');
+                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.controls = true;
+                postElement.appendChild(fileElement);
+            } else if (postFile.type.startsWith('audio')) {
+                const fileElement = document.createElement('audio');
+                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.controls = true;
+                postElement.appendChild(fileElement);
+            } else {
+                const fileElement = document.createElement('img');
+                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.style.maxWidth = '100%';
+                postElement.appendChild(fileElement);
+            }
+        }
+
+        // Add comment section
+        const commentForm = document.createElement('form');
+        const commentInput = document.createElement('input');
+        commentInput.setAttribute('type', 'text');
+        commentInput.setAttribute('placeholder', 'Write a comment...');
+        commentForm.appendChild(commentInput);
+
+        const commentButton = document.createElement('button');
+        commentButton.setAttribute('type', 'submit');
+        commentButton.textContent = 'Comment';
+        commentForm.appendChild(commentButton);
+
+        const commentsContainer = document.createElement('div');
+        commentsContainer.classList.add('comments-container');
+
+        commentForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentContent = commentInput.value;
+            if (commentContent.trim() === '') {
+                alert('Please enter a comment.');
+                return;
+            }
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.textContent = commentContent;
+            commentsContainer.appendChild(commentElement);
+            commentInput.value = '';
+        });
+
+        postElement.appendChild(commentsContainer);
+        postElement.appendChild(commentForm);
+
+        postsContainer.insertBefore(postElement, postsContainer.firstChild); // Insert new post at the top
+
+        // Clear form fields
+        document.getElementById('post-content').value = '';
+        document.getElementById('post-file').value = '';
+    });
+
+    categorySelect.addEventListener('change', function() {
+        const selectedCategory = categorySelect.value;
+        const posts = document.querySelectorAll('.post');
+
+        posts.forEach(post => {
+            const postCategory = post.getAttribute('data-category');
+            if (selectedCategory === 'all-posts' || postCategory === selectedCategory) {
+                post.style.display = 'block';
+            } else {
+                post.style.display = 'none';
+            }
+        });
+    });
+
+    // Ensure 'All Posts' is selected by default and displays all posts
+    categorySelect.value = 'all-posts';
+    categorySelect.dispatchEvent(new Event('change'));
+</script>
+</body>
+</html>
