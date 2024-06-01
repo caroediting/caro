@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,141 +8,201 @@
 <style>
     /* Technologic Hologram Style */
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: radial-gradient(circle, #1e3c72, #2a5298); /* Blue gradient background */
-        color: #eaf2ff;
-    }
-    h1 {
-        text-align: center;
-        margin-top: 20px;
-        color: #eaf2ff;
-        text-shadow: 0 0 10px rgba(234, 242, 255, 0.7);
-    }
-    #posts-container {
-        width: 90%;
-        max-width: 600px;
-        margin: auto;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-    .post {
-        border: 1px solid #eaf2ff;
-        margin-bottom: 20px;
-        padding: 10px;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(234, 242, 255, 0.5);
-        position: relative; /* Added for positioning delete button */
-    }
-    .delete-post-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: #ff4d4d;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .comment {
-        margin-left: 20px;
-        border-left: 2px solid #eaf2ff;
-        padding-left: 10px;
-        margin-top: 10px;
-        position: relative; /* Added for positioning delete button */
-    }
-    .delete-comment-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: #ff4d4d;
-        color: white;
-        border: none;
-        padding: 3px 6px;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-    form {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        padding: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
-    input[type="text"], input[type="file"], button {
-        margin-bottom: 10px;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #eaf2ff;
-    }
-    button {
-        background-color: rgba(0, 122, 204, 0.7);
-        color: white;
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 0 10px rgba(0, 122, 204, 0.7);
-    }
-    video, audio {
-        max-width: 100%;
-        display: block;
-        margin-top: 10px;
-        border: 1px solid #eaf2ff;
-        border-radius: 4px;
-        box-shadow: 0 0 10px rgba(234, 242, 255, 0.5);
-    }
-    select {
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #eaf2ff;
-    }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #00172b; /* Dark blue background */
+    color: #66aaff; /* Pale blue color */
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #00172b; /* Dark blue background */
+}
+
+/* Title styles */
+h1 {
+    color: #ffffff; /* White color */
+}
+
+/* Menu styles */
+#menu-bar {
+    background-color: #00172b; /* Dark blue background */
+    padding: 10px 0;
+    text-align: center;
+}
+
+#menu-bar a {
+    color: #3399ff; /* Vibrant blue color */
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+#menu-bar a:hover {
+    color: #66ccff; /* Lighter vibrant blue color */
+}
+
+/* Content container */
+#content-container {
+    padding: 20px;
+}
+
+/* Post container */
+.post-container {
+    background-color: #00172b; /* Dark blue background */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid #66aaff; /* Pale blue color */
+}
+
+/* Post title */
+.post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Post content */
+.post-content {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #b3e0ff; /* Lighter blue color */
+}
+
+/* Form styles */
+form {
+    background-color: #00172b; /* Dark blue background */
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #66aaff; /* Pale blue color */
+    margin-top: 20px;
+}
+/* Chat title styles */
+#chat-title {
+    text-align: center;
+    color: #ffffff; /* White color */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Added style for yapping session */
+#yapping-session {
+    text-align: center;
+    color: #ffffff; /* White color */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+input[type="text"], button {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #3399ff; /* Flashy blue color */
+    color: #00172b; /* Dark blue background */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="text"] {
+    width: calc(100% - 80px);
+    margin-right: 10px;
+}
+
+input[type="text"]:focus, button:focus {
+    outline: none;
+}
+
+button:hover {
+    background-color: #66ccff; /* Lighter flashy blue color */
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    background-color: #00172b; /* Dark blue background */
+    padding: 20px;
+    color: #66aaff; /* Pale blue color */
+}
+
+
 </style>
 </head>
 <body>
-<h1>Caro's Editing Blog</h1>
+<header>
+    <h1>Caro's Editing Blog</h1>
+</header>
 
-<!-- Category Selection -->
-<select id="category-select">
-    <option value="all-posts">All Posts</option>
-    <option value="audios">Audios</option>
-    <!-- Add other categories if needed -->
-</select>
-
-<div id="posts-container">
-    <!-- Container for posts -->
+<!-- Menu Bar -->
+<div id="menu-bar">
+    <a href="#" id="home-link">Home</a>
+    <a href="#" id="turkish-dramas-link">Turkish Dramas</a>
+    <a href="#" id="audios-link">Audios</a>
 </div>
 
-<form id="post-form">
-    <input type="text" id="post-content" placeholder="Write something...">
-    <input type="file" id="post-file">
-    <button type="submit">Post</button>
-</form>
+<!-- Category Selection -->
+<div id="posts-container">
+    <select id="category-select">
+        <option value="all-posts">All Posts</option>
+        <option value="audios">Audios</option>
+        <option value="turkish-dramas">Turkish Dramas</option>
+        <!-- Add other categories if needed -->
+    </select>
 
-<button id="deleteAllCommentsBtn">Delete All Comments</button>
+    <!-- Container for posts -->
+    <div id="posts"></div>
+
+    <form id="post-form">
+        <input type="text" id="post-content" placeholder="Write something...">
+        <input type="file" id="post-file">
+        <button type="submit">Post</button>
+    </form>
+</div>
+
+<!-- Chat Container -->
+<div id="chat-container" style="display:none;">
+    <h2 id="yapping-session">Yapping Session</h2> <!-- Added title -->
+    <div id="chat-messages">
+        <!-- Chat messages will appear here -->
+    </div>
+    <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button type="submit">Send</button>
+    </form>
+</div>
 
 <script>
+    
     const postForm = document.getElementById('post-form');
-    const postsContainer = document.getElementById('posts-container');
+    const postsContainer = document.getElementById('posts');
     const categorySelect = document.getElementById('category-select');
-    const deleteAllCommentsBtn = document.getElementById('deleteAllCommentsBtn');
+    const chatContainer = document.getElementById('chat-container');
+    const homeLink = document.getElementById('home-link');
+    const turkishDramasLink = document.getElementById('turkish-dramas-link');
+    const chatForm = document.getElementById('chat-form');
+    const chatMessages = document.getElementById('chat-messages');
+    
 
-    // Load posts and comments from localStorage when the page loads
+    // Load posts from local storage
     window.addEventListener('load', function() {
-        loadPostsFromStorage();
-        loadCommentsFromStorage();
+        loadPosts();
+        categorySelect.dispatchEvent(new Event('change'));
     });
+
+    // Save post to local storage
+    function savePost(postData) {
+        const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+        savedPosts.unshift(postData);
+        localStorage.setItem('posts', JSON.stringify(savedPosts));
+    }
 
     postForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -155,47 +216,71 @@
             return;
         }
 
-        const postId = 'post-' + Date.now(); // Generate unique post ID
+        const postData = {
+            id: Date.now(),
+            content: postContent,
+            fileType: postFile ? postFile.type : null,
+            fileUrl: postFile ? URL.createObjectURL(postFile) : null,
+            category: selectedCategory,
+            comments: []
+        };
+
+        savePost(postData);
+        createPostElement(postData);
+
+        // Clear form fields
+        document.getElementById('post-content').value = '';
+        document.getElementById('post-file').value = '';
+    });
+
+    function createPostElement(postData) {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
-        postElement.setAttribute('data-category', selectedCategory);
-        postElement.setAttribute('id', postId); // Assign ID to post
+        postElement.setAttribute('data-category', postData.category);
+        postElement.setAttribute('data-id', postData.id);
 
         // Display text content if provided
-        if (postContent.trim() !== '') {
+        if (postData.content.trim() !== '') {
             const contentElement = document.createElement('p');
-            contentElement.textContent = postContent;
+            contentElement.textContent = postData.content;
             postElement.appendChild(contentElement);
         }
 
         // Display file if provided
-        if (postFile) {
-            if (postFile.type.startsWith('video')) {
+        if (postData.fileType) {
+            if (postData.fileType.startsWith('video')) {
                 const fileElement = document.createElement('video');
-                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.src = postData.fileUrl;
                 fileElement.controls = true;
                 postElement.appendChild(fileElement);
-            } else if (postFile.type.startsWith('audio')) {
+            } else if (postData.fileType.startsWith('audio')) {
                 const fileElement = document.createElement('audio');
-                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.src = postData.fileUrl;
                 fileElement.controls = true;
                 postElement.appendChild(fileElement);
             } else {
                 const fileElement = document.createElement('img');
-                fileElement.src = URL.createObjectURL(postFile);
+                fileElement.src = postData.fileUrl;
                 fileElement.style.maxWidth = '100%';
                 postElement.appendChild(fileElement);
             }
         }
 
         // Add delete button for posts
-        const deletePostBtn = document.createElement('button');
-        deletePostBtn.classList.add('delete-post-btn');
-        deletePostBtn.textContent = 'Delete';
-        deletePostBtn.addEventListener('click', function() {
-            deletePost(postId);
+        const deletePostButton = document.createElement('button');
+        deletePostButton.textContent = 'Delete Post';
+        deletePostButton.addEventListener('click', function() {
+            // Remove the post from the DOM
+            postsContainer.removeChild(postElement);
+            // Remove the post from local storage
+            const savedPosts = JSON.parse(localStorage.getItem('posts'));
+            const postIndex = savedPosts.findIndex(p => p.id === postData.id);
+            if (postIndex !== -1) {
+                savedPosts.splice(postIndex, 1);
+                localStorage.setItem('posts', JSON.stringify(savedPosts));
+            }
         });
-        postElement.appendChild(deletePostBtn);
+        postElement.appendChild(deletePostButton);
 
         // Add comment section
         const commentForm = document.createElement('form');
@@ -212,265 +297,134 @@
         const commentsContainer = document.createElement('div');
         commentsContainer.classList.add('comments-container');
 
-        commentForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const commentContent = commentInput.value;
-            if (commentContent.trim() === '') {
-                alert('Please enter a comment.');
-                return;
-            }
+        postData.comments.forEach(comment => {
             const commentElement = document.createElement('div');
             commentElement.classList.add('comment');
-            commentElement.textContent = commentContent;
+            commentElement.textContent = comment.text;
 
             // Add delete button for comments
-            const deleteCommentBtn = document.createElement('button');
-            deleteCommentBtn.classList.add('delete-comment-btn');
-            deleteCommentBtn.textContent = 'Delete';
-            deleteCommentBtn.addEventListener('click', function() {
-                deleteComment(postId, Array.from(commentsContainer.children).indexOf(commentElement));
+            const deleteCommentButton = document.createElement('button');
+            deleteCommentButton.textContent = 'Delete Comment';
+            deleteCommentButton.addEventListener('click', function() {
+                // Remove the comment from the DOM
+                commentsContainer.removeChild(commentElement);
+                // Remove the comment from the post data
+                const commentIndex = postData.comments.findIndex(c => c.id === comment.id);
+                if (commentIndex !== -1) {
+                    postData.comments.splice(commentIndex, 1);
+                    // Update local storage
+                    const savedPosts = JSON.parse(localStorage.getItem('posts'));
+                    const postIndex = savedPosts.findIndex(p => p.id === postData.id);
+                    if (postIndex !== -1) {
+                        savedPosts[postIndex] = postData;
+                        localStorage.setItem('posts', JSON.stringify(savedPosts));
+                    }
+                }
             });
-            commentElement.appendChild(deleteCommentBtn);
+            commentElement.appendChild(deleteCommentButton);
 
             commentsContainer.appendChild(commentElement);
+        });
 
-            // Save comments
-            const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
-            const postComments = commentsContainer.querySelectorAll('.comment');
-            const postCommentsContent = [];
-            postComments.forEach(comment => {
-                postCommentsContent.push(comment.textContent);
+        commentForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentText = commentInput.value.trim();
+            if (commentText === '') return;
+
+            const commentData = {
+                id: Date.now(),
+                text: commentText
+            };
+
+            postData.comments.push(commentData);
+            savePostData(postData);
+
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.textContent = commentText;
+
+            // Add delete button for comments
+            const deleteCommentButton = document.createElement('button');
+            deleteCommentButton.textContent = 'Delete Comment';
+            deleteCommentButton.addEventListener('click', function() {
+                commentsContainer.removeChild(commentElement);
+                const commentIndex = postData.comments.findIndex(c => c.id === commentData.id);
+                if (commentIndex !== -1) {
+                    postData.comments.splice(commentIndex, 1);
+                    const savedPosts = JSON.parse(localStorage.getItem('posts'));
+                    const postIndex = savedPosts.findIndex(p => p.id === postData.id);
+                    if (postIndex !== -1) {
+                        savedPosts[postIndex] = postData;
+                        localStorage.setItem('posts', JSON.stringify(savedPosts));
+                    }
+                }
             });
-            commentsData.push({ postId, comments: postCommentsContent });
-            localStorage.setItem('comments', JSON.stringify(commentsData));
+            commentElement.appendChild(deleteCommentButton);
 
+            commentsContainer.appendChild(commentElement);
             commentInput.value = '';
         });
 
         postElement.appendChild(commentsContainer);
         postElement.appendChild(commentForm);
+        postsContainer.appendChild(postElement);
+    }
 
-        postsContainer.insertBefore(postElement, postsContainer.firstChild); // Insert new post at the top
+    function loadPosts() {
+        const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+        savedPosts.forEach(createPostElement);
+    }
 
-        // Save posts to localStorage after a new post is added
-        savePostsToStorage();
+    function savePostData(postData) {
+        const savedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+        const postIndex = savedPosts.findIndex(p => p.id === postData.id);
+        if (postIndex !== -1) {
+            savedPosts[postIndex] = postData;
+        } else {
+            savedPosts.unshift(postData);
+        }
+        localStorage.setItem('posts', JSON.stringify(savedPosts));
+    }
 
-        // Clear form fields
-        document.getElementById('post-content').value = '';
-        document.getElementById('post-file').value = '';
-    });
-
+    // Filter posts by category
     categorySelect.addEventListener('change', function() {
         const selectedCategory = categorySelect.value;
         const posts = document.querySelectorAll('.post');
-
         posts.forEach(post => {
-            const postCategory = post.getAttribute('data-category');
-            if (selectedCategory === 'all-posts' || postCategory === selectedCategory) {
-                post.style.display = 'block';
+            if (selectedCategory === 'all-posts' || post.getAttribute('data-category') === selectedCategory) {
+                post.style.display = '';
             } else {
                 post.style.display = 'none';
             }
         });
     });
 
-    // Ensure 'All Posts' is selected by default and displays all posts
-    categorySelect.value = 'all-posts';
-    categorySelect.dispatchEvent(new Event('change'));
-
-    // Function to save posts to localStorage
-    function savePostsToStorage() {
-        const allPosts = document.querySelectorAll('.post');
-        const postsData = [];
-        allPosts.forEach(post => {
-            const postData = {
-                id: post.getAttribute('id'), // Get post ID
-                content: post.querySelector('p') ? post.querySelector('p').textContent : '',
-                fileSrc: post.querySelector('img, video, audio') ? post.querySelector('img, video, audio').src : null,
-                fileType: post.querySelector('video') ? 'video' : (post.querySelector('audio') ? 'audio' : 'image'),
-                category: post.getAttribute('data-category')
-            };
-            postsData.push(postData);
-        });
-        localStorage.setItem('posts', JSON.stringify(postsData));
-    }
-
-    // Function to load posts from localStorage
-    function loadPostsFromStorage() {
-        const postsData = JSON.parse(localStorage.getItem('posts')) || [];
-        postsData.forEach(postData => {
-            const postElement = document.createElement('div');
-            postElement.classList.add('post');
-            postElement.setAttribute('data-category', postData.category);
-            postElement.setAttribute('id', postData.id); // Set post ID
-
-            if (postData.content.trim() !== '') {
-                const contentElement = document.createElement('p');
-                contentElement.textContent = postData.content;
-                postElement.appendChild(contentElement);
-            }
-
-            if (postData.fileSrc) {
-                if (postData.fileType === 'video') {
-                    const fileElement = document.createElement('video');
-                    fileElement.src = postData.fileSrc;
-                    fileElement.controls = true;
-                    postElement.appendChild(fileElement);
-                } else if (postData.fileType === 'audio') {
-                    const fileElement = document.createElement('audio');
-                    fileElement.src = postData.fileSrc;
-                    fileElement.controls = true;
-                    postElement.appendChild(fileElement);
-                } else {
-                    const fileElement = document.createElement('img');
-                    fileElement.src = postData.fileSrc;
-                    fileElement.style.maxWidth = '100%';
-                    postElement.appendChild(fileElement);
-                }
-            }
-
-            // Add delete button for posts
-            const deletePostBtn = document.createElement('button');
-            deletePostBtn.classList.add('delete-post-btn');
-            deletePostBtn.textContent = 'Delete';
-            deletePostBtn.addEventListener('click', function() {
-                deletePost(postData.id);
-            });
-            postElement.appendChild(deletePostBtn);
-
-            const commentsContainer = document.createElement('div');
-            commentsContainer.classList.add('comments-container');
-
-            const commentForm = document.createElement('form');
-            const commentInput = document.createElement('input');
-            commentInput.setAttribute('type', 'text');
-            commentInput.setAttribute('placeholder', 'Write a comment...');
-            commentForm.appendChild(commentInput);
-
-            const commentButton = document.createElement('button');
-            commentButton.setAttribute('type', 'submit');
-            commentButton.textContent = 'Comment';
-            commentForm.appendChild(commentButton);
-
-            commentForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const commentContent = commentInput.value;
-                if (commentContent.trim() === '') {
-                    alert('Please enter a comment.');
-                    return;
-                }
-                const commentElement = document.createElement('div');
-                commentElement.classList.add('comment');
-                commentElement.textContent = commentContent;
-
-                // Add delete button for comments
-                const deleteCommentBtn = document.createElement('button');
-                deleteCommentBtn.classList.add('delete-comment-btn');
-                deleteCommentBtn.textContent = 'Delete';
-                deleteCommentBtn.addEventListener('click', function() {
-                    deleteComment(postData.id, Array.from(commentsContainer.children).indexOf(commentElement));
-                });
-                commentElement.appendChild(deleteCommentBtn);
-
-                commentsContainer.appendChild(commentElement);
-
-                // Save comments
-                const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
-                const postComments = commentsContainer.querySelectorAll('.comment');
-                const postCommentsContent = [];
-                postComments.forEach(comment => {
-                    postCommentsContent.push(comment.textContent);
-                });
-                commentsData.push({ postId: postData.id, comments: postCommentsContent });
-                localStorage.setItem('comments', JSON.stringify(commentsData));
-
-                commentInput.value = '';
-            });
-
-            postElement.appendChild(commentsContainer);
-            postElement.appendChild(commentForm);
-
-            postsContainer.appendChild(postElement);
-        });
-    }
-
-    // Function to load comments from localStorage
-    function loadCommentsFromStorage() {
-        const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
-        commentsData.forEach(commentData => {
-            const post = document.getElementById(commentData.postId);
-            if (post) {
-                const commentsContainer = post.querySelector('.comments-container');
-                if (commentsContainer) {
-                    commentData.comments.forEach(commentContent => {
-                        const commentElement = document.createElement('div');
-                        commentElement.classList.add('comment');
-                        commentElement.textContent = commentContent;
-
-                        // Add delete button for comments
-                        const deleteCommentBtn = document.createElement('button');
-                        deleteCommentBtn.classList.add('delete-comment-btn');
-                        deleteCommentBtn.textContent = 'Delete';
-                        deleteCommentBtn.addEventListener('click', function() {
-                            deleteComment(commentData.postId, Array.from(commentsContainer.children).indexOf(commentElement));
-                        });
-                        commentElement.appendChild(deleteCommentBtn);
-
-                        commentsContainer.appendChild(commentElement);
-                    });
-                }
-            }
-        });
-    }
-
-    // Function to delete a post
-    function deletePost(postId) {
-        const postElement = document.getElementById(postId);
-        if (postElement) {
-            postElement.remove();
-            // Remove post from localStorage
-            const postsData = JSON.parse(localStorage.getItem('posts')) || [];
-            const updatedPostsData = postsData.filter(post => post.id !== postId);
-            localStorage.setItem('posts', JSON.stringify(updatedPostsData));
-
-            // Remove associated comments from localStorage
-            const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
-            const updatedCommentsData = commentsData.filter(comment => comment.postId !== postId);
-            localStorage.setItem('comments', JSON.stringify(updatedCommentsData));
-        }
-    }
-
-    // Function to delete a comment
-    function deleteComment(postId, commentIndex) {
-        const commentsContainer = document.getElementById(postId).querySelector('.comments-container');
-        if (commentsContainer) {
-            const commentElements = commentsContainer.querySelectorAll('.comment');
-            if (commentIndex >= 0 && commentIndex < commentElements.length) {
-                const deletedComment = commentElements[commentIndex];
-                deletedComment.remove();
-
-                // Remove comment from localStorage
-                const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
-                const postComments = commentsData.find(comment => comment.postId === postId);
-                if (postComments) {
-                    postComments.comments.splice(commentIndex, 1);
-                    localStorage.setItem('comments', JSON.stringify(commentsData));
-                }
-            }
-        }
-    }
-
-    // Function to delete all comments
-    deleteAllCommentsBtn.addEventListener('click', function() {
-        const allComments = document.querySelectorAll('.comment');
-        allComments.forEach(comment => comment.remove());
-
-        // Clear all comments from localStorage
-        localStorage.setItem('comments', JSON.stringify([]));
+    // Navigation between Home and Turkish Dramas sections
+    homeLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        postsContainer.style.display = 'block';
+        chatContainer.style.display = 'none';
     });
 
+    turkishDramasLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        postsContainer.style.display = 'none';
+        chatContainer.style.display = 'block';
+    });
+
+    // Chat functionality
+    chatForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const chatInput = document.getElementById('chat-input').value.trim();
+        if (chatInput === '') return;
+
+        const chatMessage = document.createElement('div');
+        chatMessage.classList.add('chat-message');
+        chatMessage.textContent = chatInput;
+
+        chatMessages.appendChild(chatMessage);
+        document.getElementById('chat-input').value = '';
+    });
 </script>
 </body>
 </html>
-
-
