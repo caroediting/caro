@@ -35,12 +35,36 @@
         background-color: rgba(0, 0, 0, 0.3);
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(234, 242, 255, 0.5);
+        position: relative; /* Added for positioning delete button */
+    }
+    .delete-post-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
     }
     .comment {
         margin-left: 20px;
         border-left: 2px solid #eaf2ff;
         padding-left: 10px;
         margin-top: 10px;
+        position: relative; /* Added for positioning delete button */
+    }
+    .delete-comment-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 3px 6px;
+        border-radius: 3px;
+        cursor: pointer;
     }
     form {
         margin-top: 20px;
@@ -105,10 +129,13 @@
     <button type="submit">Post</button>
 </form>
 
+<button id="deleteAllCommentsBtn">Delete All Comments</button>
+
 <script>
     const postForm = document.getElementById('post-form');
     const postsContainer = document.getElementById('posts-container');
     const categorySelect = document.getElementById('category-select');
+    const deleteAllCommentsBtn = document.getElementById('deleteAllCommentsBtn');
 
     // Load posts and comments from localStorage when the page loads
     window.addEventListener('load', function() {
@@ -161,6 +188,15 @@
             }
         }
 
+        // Add delete button for posts
+        const deletePostBtn = document.createElement('button');
+        deletePostBtn.classList.add('delete-post-btn');
+        deletePostBtn.textContent = 'Delete';
+        deletePostBtn.addEventListener('click', function() {
+            deletePost(postId);
+        });
+        postElement.appendChild(deletePostBtn);
+
         // Add comment section
         const commentForm = document.createElement('form');
         const commentInput = document.createElement('input');
@@ -186,11 +222,20 @@
             const commentElement = document.createElement('div');
             commentElement.classList.add('comment');
             commentElement.textContent = commentContent;
+
+            // Add delete button for comments
+            const deleteCommentBtn = document.createElement('button');
+            deleteCommentBtn.classList.add('delete-comment-btn');
+            deleteCommentBtn.textContent = 'Delete';
+            deleteCommentBtn.addEventListener('click', function() {
+                deleteComment(postId, Array.from(commentsContainer.children).indexOf(commentElement));
+            });
+            commentElement.appendChild(deleteCommentBtn);
+
             commentsContainer.appendChild(commentElement);
 
             // Save comments
-            const commentsData = JSON.parse
-            (localStorage.getItem('comments')) || [];
+            const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
             const postComments = commentsContainer.querySelectorAll('.comment');
             const postCommentsContent = [];
             postComments.forEach(comment => {
@@ -284,6 +329,15 @@
                 }
             }
 
+            // Add delete button for posts
+            const deletePostBtn = document.createElement('button');
+            deletePostBtn.classList.add('delete-post-btn');
+            deletePostBtn.textContent = 'Delete';
+            deletePostBtn.addEventListener('click', function() {
+                deletePost(postData.id);
+            });
+            postElement.appendChild(deletePostBtn);
+
             const commentsContainer = document.createElement('div');
             commentsContainer.classList.add('comments-container');
 
@@ -308,6 +362,16 @@
                 const commentElement = document.createElement('div');
                 commentElement.classList.add('comment');
                 commentElement.textContent = commentContent;
+
+                // Add delete button for comments
+                const deleteCommentBtn = document.createElement('button');
+                deleteCommentBtn.classList.add('delete-comment-btn');
+                deleteCommentBtn.textContent = 'Delete';
+                deleteCommentBtn.addEventListener('click', function() {
+                    deleteComment(postData.id, Array.from(commentsContainer.children).indexOf(commentElement));
+                });
+                commentElement.appendChild(deleteCommentBtn);
+
                 commentsContainer.appendChild(commentElement);
 
                 // Save comments
@@ -339,16 +403,74 @@
                 const commentsContainer = post.querySelector('.comments-container');
                 if (commentsContainer) {
                     commentData.comments.forEach(commentContent => {
-                        const commentElement
-                        = document.createElement('div');
+                        const commentElement = document.createElement('div');
                         commentElement.classList.add('comment');
                         commentElement.textContent = commentContent;
+
+                        // Add delete button for comments
+                        const deleteCommentBtn = document.createElement('button');
+                        deleteCommentBtn.classList.add('delete-comment-btn');
+                        deleteCommentBtn.textContent = 'Delete';
+                        deleteCommentBtn.addEventListener('click', function() {
+                            deleteComment(commentData.postId, Array.from(commentsContainer.children).indexOf(commentElement));
+                        });
+                        commentElement.appendChild(deleteCommentBtn);
+
                         commentsContainer.appendChild(commentElement);
                     });
                 }
             }
         });
     }
+
+    // Function to delete a post
+    function deletePost(postId) {
+        const postElement = document.getElementById(postId);
+        if (postElement) {
+            postElement.remove();
+            // Remove post from localStorage
+            const postsData = JSON.parse(localStorage.getItem('posts')) || [];
+            const updatedPostsData = postsData.filter(post => post.id !== postId);
+            localStorage.setItem('posts', JSON.stringify(updatedPostsData));
+
+            // Remove associated comments from localStorage
+            const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
+            const updatedCommentsData = commentsData.filter(comment => comment.postId !== postId);
+            localStorage.setItem('comments', JSON.stringify(updatedCommentsData));
+        }
+    }
+
+    // Function to delete a comment
+    function deleteComment(postId, commentIndex) {
+        const commentsContainer = document.getElementById(postId).querySelector('.comments-container');
+        if (commentsContainer) {
+            const commentElements = commentsContainer.querySelectorAll('.comment');
+            if (commentIndex >= 0 && commentIndex < commentElements.length) {
+                const deletedComment = commentElements[commentIndex];
+                deletedComment.remove();
+
+                // Remove comment from localStorage
+                const commentsData = JSON.parse(localStorage.getItem('comments')) || [];
+                const postComments = commentsData.find(comment => comment.postId === postId);
+                if (postComments) {
+                    postComments.comments.splice(commentIndex, 1);
+                    localStorage.setItem('comments', JSON.stringify(commentsData));
+                }
+            }
+        }
+    }
+
+    // Function to delete all comments
+    deleteAllCommentsBtn.addEventListener('click', function() {
+        const allComments = document.querySelectorAll('.comment');
+        allComments.forEach(comment => comment.remove());
+
+        // Clear all comments from localStorage
+        localStorage.setItem('comments', JSON.stringify([]));
+    });
+
 </script>
 </body>
 </html>
+
+
